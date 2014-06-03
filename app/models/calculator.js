@@ -1,3 +1,5 @@
+/* jshint unused:false */
+
 'use strict';
 
 class Calculator{
@@ -19,26 +21,35 @@ class Calculator{
     return result;
   }
 
-  // static comDenom(x){
-  //   var denoms = x.map(n=>n.split('/')).map(n=>n[1] * 1).sort((a,b)=>b-a);
-  //
-  //   var output = [];
-  //   var i = 1;
-  //
-  //   while(denoms.length === output.length){
-  //     for(var j = 0; j < denoms.length; i++){
-  //       var remainder = (denoms[0] * i) % denoms[j];
-  //       if(!remainder){
-  //         output.push(denoms[j]);
-  //       }
-  //     }
-  //     if(denoms.length === output.length)
-  //   }
-  //
-  //   console.log(denoms);
-  // }
+  static addTwoFractions(x, y){
+    var [nX, dX] = x.trim().split('/').map(n=>n*1);
+    var [nY, dY] = y.trim().split('/').map(n=>n*1);
 
+    var nX1 = dY * nX;
+    var nY1 = dX * nY;
 
+    var numerator = nX1 + nY1;
+    var denominator = dX * dY;
+
+    return `${numerator}/${denominator}`;
+  }
+
+  static addFractions(...numbers){
+    var sum = numbers.reduce((prev,curr)=>Calculator.addTwoFractions(prev,curr), numbers.pop());
+    var [n,d] = sum.split('/').map(n=>n*1);
+    return lcNumerator(n,d);
+  }
+
+}
+
+function lcNumerator(n, d) {
+  var denom = lcDenom(n,d);
+  var num = ( n / denom );
+  return `${num}/${denom}`;
+}
+
+function lcDenom(a,b){
+  return ( b === 0 ) ? (a):( lcDenom(b, a % b) );
 }
 
 module.exports = Calculator;

@@ -44,10 +44,10 @@ describe('Calculator', function(){
     });
   });
 
-  // describe('.comDenom', function(){
-  //   it('should find common denominator between array of fractions', function(){
-  //     var denominator = Calculator.comDenom(['2/4', '1/8', '3/12']);
-  //     expect(denominator).to.equal(24);
-  //   });
-  // });
+  describe('.addFractions', function(){
+    it('should add a list of fractions', function(){
+      var fraction = Calculator.addFractions('2/4', '1/8', '3/12');
+      expect(fraction).to.equal('7/48');
+    });
+  });
 });
